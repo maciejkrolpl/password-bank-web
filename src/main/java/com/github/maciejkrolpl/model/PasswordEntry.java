@@ -16,7 +16,7 @@ public class PasswordEntry extends  BaseEntity {
 
     private String login;
 
-    private Character[] password;
+    private String password;
 
     public Long getId() {
         return id;
@@ -42,11 +42,11 @@ public class PasswordEntry extends  BaseEntity {
         this.login = login;
     }
 
-    public Character[] getPassword() {
+    public String getPassword() {
         return password;
     }
 
-    public void setPassword(Character[] password) {
+    public void setPassword(String password) {
         this.password = password;
     }
 }
