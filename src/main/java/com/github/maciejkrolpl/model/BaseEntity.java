@@ -1,12 +1,13 @@
 package com.github.maciejkrolpl.model;
 
 import javax.persistence.Entity;
+import javax.persistence.MappedSuperclass;
 import javax.persistence.PrePersist;
 import javax.persistence.PreUpdate;
 import java.time.LocalDateTime;
 import java.util.UUID;
 
-@Entity
+@MappedSuperclass
 public class BaseEntity {
 
     private String uuid = UUID.randomUUID().toString();
