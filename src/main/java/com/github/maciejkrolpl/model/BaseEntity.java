@@ -22,7 +22,7 @@ public class BaseEntity {
 
     @PreUpdate
     public void preUpdate() {
-        this.createdAt = LocalDateTime.now();
+        this.updatedAt = LocalDateTime.now();
     }
 
     public String getUuid() {
