@@ -1,5 +1,6 @@
 package com.github.maciejkrolpl.controller;
 
+import com.github.maciejkrolpl.dto.PasswordEntrySaveDto;
 import com.github.maciejkrolpl.model.PasswordEntry;
 import com.github.maciejkrolpl.service.PasswordEntryService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -35,8 +36,9 @@ public class PasswordEntryController {
     }
 
     @PostMapping
-    public PasswordEntry create(PasswordEntry passwordEntry) {
-        return service.createPasswordEntry(passwordEntry);
+    public PasswordEntry create(@RequestBody PasswordEntrySaveDto passwordEntrySaveDto) {
+        PasswordEntry passwordEntry = service.createPasswordEntry(passwordEntrySaveDto);
+        return new PasswordEntryDto(passwordEntry);
     }
 
     @DeleteMapping
