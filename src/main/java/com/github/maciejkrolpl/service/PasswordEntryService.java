@@ -1,5 +1,6 @@
 package com.github.maciejkrolpl.service;
 
+import com.github.maciejkrolpl.dto.PasswordEntrySaveDto;
 import com.github.maciejkrolpl.model.PasswordEntry;
 
 import java.util.Set;
@@ -14,7 +15,7 @@ public interface PasswordEntryService {
 
     void deleteOneById(Long id);
 
-    PasswordEntry createPasswordEntry(PasswordEntry passwordEntry);
+    PasswordEntry createPasswordEntry(PasswordEntrySaveDto passwordEntrySaveDto);
 
 
 }
