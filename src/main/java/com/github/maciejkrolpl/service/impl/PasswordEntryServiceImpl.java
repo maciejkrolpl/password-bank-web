@@ -27,7 +27,11 @@ public class PasswordEntryServiceImpl implements PasswordEntryService {
         Optional<PasswordEntry> optionalEntry = repository.findById(id);
 
         if (optionalEntry.isPresent()) {
-            return  optionalEntry.get();
+            PasswordEntry passwordEntry = optionalEntry.get();
+            String password = passwordEntry.getPassword();
+
+            passwordEntry.setPassword(password);
+            return passwordEntry;
         } else {
             throw new RuntimeException();
         }
