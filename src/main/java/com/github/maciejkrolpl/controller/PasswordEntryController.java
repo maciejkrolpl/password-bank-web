@@ -1,10 +1,14 @@
 package com.github.maciejkrolpl.controller;
 
+import com.github.maciejkrolpl.dto.PasswordEntryDto;
+import com.github.maciejkrolpl.dto.PasswordEntrySaveDto;
 import com.github.maciejkrolpl.model.PasswordEntry;
 import com.github.maciejkrolpl.service.PasswordEntryService;
+import jdk.internal.org.objectweb.asm.Handle;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.HashSet;
 import java.util.Optional;
 
 import org.springframework.web.bind.annotation.GetMapping;
@@ -25,18 +29,23 @@ public class PasswordEntryController {
     }
 
     @GetMapping("/{id}")
-    public PasswordEntry findOne(@PathVariable Long id) {
-        return service.findOneById(id);
+    public PasswordEntryDto findOne(@PathVariable Long id) {
+        PasswordEntry passwordEntry = service.findOneById(id);
+        return new PasswordEntryDto(passwordEntry);
     }
 
     @GetMapping
-    public Set<PasswordEntry> findAll() {
-        return service.findAll();
+    public Set<PasswordEntryDto> findAll() {
+        Set<PasswordEntry> passwordEntries = service.findAll();
+        Set<PasswordEntryDto> passwordEntryDtos = new HashSet<>();
+        passwordEntries.forEach(pe -> passwordEntryDtos.add(new PasswordEntryDto(pe)));
+        return passwordEntryDtos;
     }
 
     @PostMapping
-    public PasswordEntry create(PasswordEntry passwordEntry) {
-        return service.createPasswordEntry(passwordEntry);
+    public PasswordEntryDto create(@RequestBody PasswordEntrySaveDto passwordEntrySaveDto) {
+        PasswordEntry passwordEntry = service.createPasswordEntry(passwordEntrySaveDto);
+        return new PasswordEntryDto(passwordEntry);
     }
 
     @DeleteMapping

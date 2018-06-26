@@ -1,5 +1,6 @@
 package com.github.maciejkrolpl.service.impl;
 
+import com.github.maciejkrolpl.dto.PasswordEntrySaveDto;
 import com.github.maciejkrolpl.model.PasswordEntry;
 import com.github.maciejkrolpl.repository.PasswordEntryRepository;
 import com.github.maciejkrolpl.service.PasswordEntryService;
@@ -48,7 +49,13 @@ public class PasswordEntryServiceImpl implements PasswordEntryService {
     }
 
     @Override
-    public PasswordEntry createPasswordEntry(PasswordEntry passwordEntry) {
+    public PasswordEntry createPasswordEntry(PasswordEntrySaveDto passwordEntrySaveDto) {
+        PasswordEntry passwordEntry = new PasswordEntry();
+        passwordEntry.setService(passwordEntrySaveDto.getService());
+        passwordEntry.setLogin(passwordEntrySaveDto.getLogin());
+        passwordEntry.setPassword(passwordEntrySaveDto.getPassword());
+
         return repository.save(passwordEntry);
+
     }
 }
