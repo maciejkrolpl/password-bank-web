@@ -10,9 +10,10 @@ import java.security.NoSuchAlgorithmException;
 
 public class EncryptDecrypt {
 
-    public String encrypt(String text) throws NoSuchPaddingException, NoSuchAlgorithmException, InvalidKeyException, BadPaddingException, IllegalBlockSizeException {
+    private static byte[] key = "4da5ea60fd8f7ee69f60fc30504064e0".getBytes();
 
-        byte[] key = "qwertyuiop".getBytes();
+    public static byte[] encrypt(String text) throws NoSuchPaddingException, NoSuchAlgorithmException, InvalidKeyException, BadPaddingException, IllegalBlockSizeException {
+
         byte[] dataToSend = text.getBytes();
 
 
@@ -22,14 +23,12 @@ public class EncryptDecrypt {
         c.init(Cipher.ENCRYPT_MODE, k);
         byte[] encryptedData = c.doFinal(dataToSend);
 
-        return new String(dataToSend);
+        return encryptedData;
 
     }
 
-    public String decrypt(String text) throws NoSuchPaddingException, NoSuchAlgorithmException, InvalidKeyException, BadPaddingException, IllegalBlockSizeException {
+    public static String decrypt(byte[] encryptedData) throws NoSuchPaddingException, NoSuchAlgorithmException, InvalidKeyException, BadPaddingException, IllegalBlockSizeException {
 
-        byte[] key = "qwertyuiop".getBytes();
-        byte[] encryptedData = text.getBytes();
 
                 Cipher c = Cipher.getInstance("AES");
         SecretKeySpec k =
