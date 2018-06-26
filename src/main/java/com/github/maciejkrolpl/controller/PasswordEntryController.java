@@ -48,8 +48,8 @@ public class PasswordEntryController {
         return new PasswordEntryDto(passwordEntry);
     }
 
-    @DeleteMapping
-    public void delete(Long id) {
+    @DeleteMapping("/{id}")
+    public void delete(@PathVariable Long id) {
         service.deleteOneById(id);
     }
 
