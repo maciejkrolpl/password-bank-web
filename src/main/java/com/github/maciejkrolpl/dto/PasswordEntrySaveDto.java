@@ -4,7 +4,7 @@ public class PasswordEntrySaveDto {
 
     private String service;
     private String login;
-    private String password;
+    private Byte[] password;
 
     public String getService() {
         return service;
@@ -22,11 +22,11 @@ public class PasswordEntrySaveDto {
         this.login = login;
     }
 
-    public String getPassword() {
+    public Byte[] getPassword() {
         return password;
     }
 
-    public void setPassword(String password) {
+    public void setPassword(Byte[] password) {
         this.password = password;
     }
 }

@@ -28,7 +28,7 @@ public class PasswordEntryServiceImpl implements PasswordEntryService {
 
         if (optionalEntry.isPresent()) {
             PasswordEntry passwordEntry = optionalEntry.get();
-            String password = passwordEntry.getPassword();
+            Byte[] password = passwordEntry.getPassword();
 
             passwordEntry.setPassword(password);
             return passwordEntry;

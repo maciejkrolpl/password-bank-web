@@ -6,7 +6,7 @@ public class PasswordEntryDto {
 
     private String service;
     private String login;
-    private String password;
+    private Byte[] password;
 
     public PasswordEntryDto(PasswordEntry passwordEntry) {
         this.service = passwordEntry.getService();
@@ -30,11 +30,11 @@ public class PasswordEntryDto {
         this.login = login;
     }
 
-    public String getPassword() {
+    public Byte[] getPassword() {
         return password;
     }
 
-    public void setPassword(String password) {
+    public void setPassword(Byte[] password) {
         this.password = password;
     }
 }
