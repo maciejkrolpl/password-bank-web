@@ -19,17 +19,13 @@ import java.util.HashSet;
 import java.util.Optional;
 import java.util.Set;
 
+import static com.github.maciejkrolpl.encrypt.EncryptDecrypt.encrypt;
+
 @Service
 public class PasswordEntryServiceImpl implements PasswordEntryService {
 
     private PasswordEntryRepository repository;
 
-
-    private String encrypt(String plainText, String key) {
-        BasicTextEncryptor encryptor = new BasicTextEncryptor();
-        encryptor.setPasswordCharArray(key.toCharArray());
-        return encryptor.encrypt(plainText);
-    }
 
 
     @Autowired

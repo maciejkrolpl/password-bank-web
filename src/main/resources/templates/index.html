@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous" />
+    <meta charset="UTF-8" />
+    <title>Password Bank Web</title>
+</head>
+<body>
+<h2>Password Bank Web</h2>
+
+<div class="container">
+
+    <div class="row">
+
+        <div class="col-sm"></div>
+        <div class="col-sm">
+
+            <table border="1">
+                <tr>
+                    <th>Service</th>
+                    <th>Login</th>
+                    <th>Password</th>
+                </tr>
+                <tr th:each ="entry : ${entries}">
+                    <td th:utext="${entry.service}">...</td>
+                    <td th:utext="${entry.login}">...</td>
+                    <td><a th:href="${entry.id}">*******</a></td>
+                </tr>
+
+            </table>
+
+
+        </div>
+        <div class="col-sm"></div>
+
+
+    </div>
+
+</div>
+
+
+</body>
+</html>
