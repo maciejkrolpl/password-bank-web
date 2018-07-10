@@ -1,12 +1,19 @@
 package com.github.maciejkrolpl.service.impl;
 
 import com.github.maciejkrolpl.dto.PasswordEntrySaveDto;
+import com.github.maciejkrolpl.encrypt.EncryptDecrypt;
 import com.github.maciejkrolpl.model.PasswordEntry;
 import com.github.maciejkrolpl.repository.PasswordEntryRepository;
 import com.github.maciejkrolpl.service.PasswordEntryService;
+import org.jasypt.util.text.BasicTextEncryptor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import javax.crypto.BadPaddingException;
+import javax.crypto.IllegalBlockSizeException;
+import javax.crypto.NoSuchPaddingException;
+import java.security.InvalidKeyException;
+import java.security.NoSuchAlgorithmException;
 import java.util.HashSet;
 import java.util.Optional;
 import java.util.Set;
@@ -28,7 +35,7 @@ public class PasswordEntryServiceImpl implements PasswordEntryService {
 
         if (optionalEntry.isPresent()) {
             PasswordEntry passwordEntry = optionalEntry.get();
-            Byte[] password = passwordEntry.getPassword();
+            String password = passwordEntry.getPassword();
 
             passwordEntry.setPassword(password);
             return passwordEntry;
@@ -53,11 +60,15 @@ public class PasswordEntryServiceImpl implements PasswordEntryService {
     }
 
     @Override
-    public PasswordEntry createPasswordEntry(PasswordEntrySaveDto passwordEntrySaveDto) {
-        PasswordEntry passwordEntry = new PasswordEntry();
-        passwordEntry.setService(passwordEntrySaveDto.getService());
-        passwordEntry.setLogin(passwordEntrySaveDto.getLogin());
-        passwordEntry.setPassword(passwordEntrySaveDto.getPassword());
+    public PasswordEntry createPasswordEntry(PasswordEntrySaveDto dto)  {
+        PasswordEntry passwordEntry = repository.save(new PasswordEntry());
+        passwordEntry.setService(dto.getService());
+        passwordEntry.setLogin(dto.getLogin());
+        String password = dto.getPassword();
+
+        BasicTextEncryptor encryptor = new BasicTextEncryptor();
+        encryptor.setPasswordCharArray(passwordEntry.getUuid().toCharArray());
+
 
         return repository.save(passwordEntry);
 
