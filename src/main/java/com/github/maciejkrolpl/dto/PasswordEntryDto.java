@@ -16,6 +16,9 @@ public class PasswordEntryDto {
         this.id = passwordEntry.getId();
     }
 
+    public PasswordEntryDto() {
+    }
+
     public Long getId() {
         return id;
     }

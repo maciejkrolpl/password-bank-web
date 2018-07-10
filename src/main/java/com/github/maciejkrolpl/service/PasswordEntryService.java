@@ -24,5 +24,5 @@ public interface PasswordEntryService {
     PasswordEntry createPasswordEntry(PasswordEntrySaveDto passwordEntrySaveDto);
 
 
-    PasswordEntry editPasswordEntry(Long id, PasswordEntryDto dto);
+    PasswordEntry editPasswordEntry(PasswordEntryDto dto);
 }
