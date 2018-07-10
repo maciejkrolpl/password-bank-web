@@ -25,6 +25,11 @@ public class PasswordEntryServiceImpl implements PasswordEntryService {
     private PasswordEntryRepository repository;
 
 
+    private String encrypt(String plainText, String key) {
+        BasicTextEncryptor encryptor = new BasicTextEncryptor();
+        encryptor.setPasswordCharArray(key.toCharArray());
+        return encryptor.encrypt(plainText);
+    }
 
 
     @Autowired
@@ -35,7 +40,6 @@ public class PasswordEntryServiceImpl implements PasswordEntryService {
     @Override
     public PasswordEntry findOneById(Long id) {
         Optional<PasswordEntry> optionalEntry = repository.findById(id);
-        BasicTextEncryptor encryptor = new BasicTextEncryptor();
 
         if (optionalEntry.isPresent()) {
             return optionalEntry.get();
@@ -61,31 +65,27 @@ public class PasswordEntryServiceImpl implements PasswordEntryService {
 
     @Override
     public PasswordEntry createPasswordEntry(PasswordEntrySaveDto dto)  {
-        BasicTextEncryptor encryptor = new BasicTextEncryptor();
 
         PasswordEntry passwordEntry = repository.save(new PasswordEntry());
         passwordEntry.setService(dto.getService());
         passwordEntry.setLogin(dto.getLogin());
-        String password = dto.getPassword();
 
-        encryptor.setPasswordCharArray(passwordEntry.getUuid().toCharArray());
-        String encrypted = encryptor.encrypt(password);
-        passwordEntry.setPassword(encrypted);
+        passwordEntry.setPassword(encrypt(dto.getPassword(), passwordEntry.getUuid()));
 
         return repository.save(passwordEntry);
     }
 
     @Override
-    public PasswordEntry editPasswordEntry(Long id, PasswordEntryDto dto)  {
+    public PasswordEntry editPasswordEntry(PasswordEntryDto dto)  {
 
-        Optional<PasswordEntry> optionalEntry = repository.findById(id);
+        Optional<PasswordEntry> optionalEntry = repository.findById(dto.getId());
         PasswordEntry passwordEntry;
 
         if (!optionalEntry.isPresent()) {
             throw new RuntimeException();
         } else {
             passwordEntry = optionalEntry.get();
-            passwordEntry.setPassword(dto.getPassword());
+            passwordEntry.setPassword(encrypt(dto.getPassword(), passwordEntry.getUuid()));
             passwordEntry.setService(dto.getService());
             passwordEntry.setLogin(dto.getLogin());
         }

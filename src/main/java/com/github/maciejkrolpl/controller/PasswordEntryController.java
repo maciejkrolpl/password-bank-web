@@ -34,9 +34,9 @@ public class PasswordEntryController {
         return new PasswordEntryDto(passwordEntry);
     }
 
-    @PutMapping("/{id}")
-    public PasswordEntryDto edit(@PathVariable Long id, @RequestBody PasswordEntryDto passwordEntryDto) {
-        PasswordEntry passwordEntry = service.editPasswordEntry(id, passwordEntryDto);
+    @PutMapping
+    public PasswordEntryDto edit(@RequestBody PasswordEntryDto passwordEntryDto) {
+        PasswordEntry passwordEntry = service.editPasswordEntry(passwordEntryDto);
         return new PasswordEntryDto(passwordEntry);
     }
 
