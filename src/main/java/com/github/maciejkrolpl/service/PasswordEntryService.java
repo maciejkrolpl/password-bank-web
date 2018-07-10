@@ -1,5 +1,6 @@
 package com.github.maciejkrolpl.service;
 
+import com.github.maciejkrolpl.dto.PasswordEntryDto;
 import com.github.maciejkrolpl.dto.PasswordEntrySaveDto;
 import com.github.maciejkrolpl.model.PasswordEntry;
 
@@ -20,7 +21,8 @@ public interface PasswordEntryService {
 
     void deleteOneById(Long id);
 
-    PasswordEntry createPasswordEntry(PasswordEntrySaveDto passwordEntrySaveDto) throws IllegalBlockSizeException, InvalidKeyException, BadPaddingException, NoSuchAlgorithmException, NoSuchPaddingException;
+    PasswordEntry createPasswordEntry(PasswordEntrySaveDto passwordEntrySaveDto);
 
 
+    PasswordEntry editPasswordEntry(Long id, PasswordEntryDto dto);
 }

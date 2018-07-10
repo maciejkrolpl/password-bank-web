@@ -4,6 +4,7 @@ import com.github.maciejkrolpl.model.PasswordEntry;
 
 public class PasswordEntryDto {
 
+    private Long id;
     private String service;
     private String login;
     private String password;
@@ -12,6 +13,15 @@ public class PasswordEntryDto {
         this.service = passwordEntry.getService();
         this.login = passwordEntry.getLogin();
         this.password = passwordEntry.getPassword();
+        this.id = passwordEntry.getId();
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
     }
 
     public String getService() {

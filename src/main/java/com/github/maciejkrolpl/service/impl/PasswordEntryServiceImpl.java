@@ -1,5 +1,6 @@
 package com.github.maciejkrolpl.service.impl;
 
+import com.github.maciejkrolpl.dto.PasswordEntryDto;
 import com.github.maciejkrolpl.dto.PasswordEntrySaveDto;
 import com.github.maciejkrolpl.encrypt.EncryptDecrypt;
 import com.github.maciejkrolpl.model.PasswordEntry;
@@ -24,6 +25,8 @@ public class PasswordEntryServiceImpl implements PasswordEntryService {
     private PasswordEntryRepository repository;
 
 
+
+
     @Autowired
     public PasswordEntryServiceImpl(PasswordEntryRepository repository) {
         this.repository = repository;
@@ -32,13 +35,10 @@ public class PasswordEntryServiceImpl implements PasswordEntryService {
     @Override
     public PasswordEntry findOneById(Long id) {
         Optional<PasswordEntry> optionalEntry = repository.findById(id);
+        BasicTextEncryptor encryptor = new BasicTextEncryptor();
 
         if (optionalEntry.isPresent()) {
-            PasswordEntry passwordEntry = optionalEntry.get();
-            String password = passwordEntry.getPassword();
-
-            passwordEntry.setPassword(password);
-            return passwordEntry;
+            return optionalEntry.get();
         } else {
             throw new RuntimeException();
         }
@@ -61,16 +61,37 @@ public class PasswordEntryServiceImpl implements PasswordEntryService {
 
     @Override
     public PasswordEntry createPasswordEntry(PasswordEntrySaveDto dto)  {
+        BasicTextEncryptor encryptor = new BasicTextEncryptor();
+
         PasswordEntry passwordEntry = repository.save(new PasswordEntry());
         passwordEntry.setService(dto.getService());
         passwordEntry.setLogin(dto.getLogin());
         String password = dto.getPassword();
 
-        BasicTextEncryptor encryptor = new BasicTextEncryptor();
         encryptor.setPasswordCharArray(passwordEntry.getUuid().toCharArray());
+        String encrypted = encryptor.encrypt(password);
+        passwordEntry.setPassword(encrypted);
 
+        return repository.save(passwordEntry);
+    }
+
+    @Override
+    public PasswordEntry editPasswordEntry(Long id, PasswordEntryDto dto)  {
+
+        Optional<PasswordEntry> optionalEntry = repository.findById(id);
+        PasswordEntry passwordEntry;
+
+        if (!optionalEntry.isPresent()) {
+            throw new RuntimeException();
+        } else {
+            passwordEntry = optionalEntry.get();
+            passwordEntry.setPassword(dto.getPassword());
+            passwordEntry.setService(dto.getService());
+            passwordEntry.setLogin(dto.getLogin());
+        }
 
         return repository.save(passwordEntry);
 
     }
-}
+
+    }
