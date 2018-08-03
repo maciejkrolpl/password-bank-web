@@ -8,11 +8,15 @@ public class PasswordEntryHtmlDto {
     private Long id;
     private String service;
     private String login;
+    private String password;
+    private String uuid;
 
     public PasswordEntryHtmlDto(PasswordEntry entry) {
         this.id = entry.getId();
         this.service = entry.getService();
         this.login = entry.getLogin();
+        this.uuid = entry.getUuid();
+        this.password = EncryptDecrypt.decrypt(entry.getPassword(), entry.getUuid());
     }
 
     public PasswordEntryHtmlDto() {
@@ -30,4 +34,7 @@ public class PasswordEntryHtmlDto {
         return login;
     }
 
+    public String getPassword() {
+        return password;
+    }
 }

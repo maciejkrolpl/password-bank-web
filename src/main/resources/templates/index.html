@@ -24,7 +24,7 @@
                 <tr th:each ="entry : ${entries}">
                     <td th:utext="${entry.service}">...</td>
                     <td th:utext="${entry.login}">...</td>
-                    <td><a th:href="${entry.id}">*******</a></td>
+                    <td><a th:href="'entry/' + ${entry.id}">*******</a></td>
                 </tr>
 
             </table>
