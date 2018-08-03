@@ -22,6 +22,7 @@
                     <th>Login</th>
                     <th>Password</th>
                     <th>Copy</th>
+                    <th>Edit</th>
                 </tr>
                 <tr>
                     <td th:utext="${entry.service}">...</td>
@@ -29,8 +30,14 @@
                     <td th:utext="${entry.password}" id="password">...</td>
                     <td>
                         <a onclick="copyTextFunction()" href="#">
-                            <img th:src="@{/media/copy_to_clipboard.png}" height="32" width="32" />
+                            <img th:src="@{/media/copy_to_clipboard.png}" height="24" width="24" alt="Copy to clipboard" />
                         </a>
+                    </td>
+                    <td>
+                        <a th:href="'../edit/' + ${entry.id}">
+                            <img th:src="@{/media/edit.png}" height="24" width="24" alt="Edit entry" />
+                        </a>
+                    </td>
                 </tr>
 
             </table>

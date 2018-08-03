@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+          integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous"/>
+    <meta charset="UTF-8"/>
+    <title>Password Bank Web</title>
+</head>
+<body>
+<h2>Password Bank Web</h2>
+<h3>Edit entry</h3>
+
+<div class="container">
+
+    <div class="row">
+
+        <div class="col-sm"></div>
+        <div class="col-sm">
+
+            <table border="1">
+                <form action="#" th:action="@{/submit}" method="post" th:object="${entry}">
+                    <tr>
+                        <td>Service</td>
+                        <td>
+                            <input type="text" th:value="${entry.service}" th:field="*{service}"/>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>Login</td>
+                        <td>
+                            <input type="text" th:value="${entry.login}" th:field="*{login}" />
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>Password</td>
+                        <td>
+                            <input type="text" th:value="${entry.password}" th:field="*{password}" />
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>&nbsp;</td>
+                        <td>
+                            <input type="submit" value="Submit" />
+                        </td>
+                    </tr>
+                </form>
+            </table>
+
+
+        </div>
+        <div class="col-sm"></div>
+
+
+    </div>
+
+</div>
+
+
+</body>
+</html>
+
