@@ -4,6 +4,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.validation.constraints.NotNull;
 
 @Entity
 public class PasswordEntry extends  BaseEntity {
@@ -12,10 +13,13 @@ public class PasswordEntry extends  BaseEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @NotNull(message = "Field may not be null")
     private String service;
 
+    @NotNull(message = "Field may not be null")
     private String login;
 
+    @NotNull(message = "Field may not be null")
     private String password;
 
     public Long getId() {

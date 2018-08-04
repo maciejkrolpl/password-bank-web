@@ -18,6 +18,11 @@
 
             <table border="1">
                 <tr>
+                    <td colspan="3">
+                        Entry successfully saved!
+                    </td>
+                </tr>
+                <tr>
                     <th>Service</th>
                     <th>Login</th>
                     <th>Password</th>
@@ -29,23 +34,10 @@
                 </tr>
                 <tr>
                     <td colspan="3">
-                        <a th:href="'/edit/' + ${entry.id}">Return to edit</a>
-                    </td>
-                </tr>
-                <tr>
-                    <td colspan="3">
-                        <form action="#" th:action="@{/save}" method="post" th:object="${entry}">
-                            <input type="hidden" th:value="${entry.service}" th:field="*{service}"/>
-                            <input type="hidden" th:value="${entry.login}" th:field="*{login}"/>
-                            <input type="hidden" th:value="${entry.password}" th:field="*{password}"/>
-                            <input type="hidden" th:value="${entry.id}" th:field="*{id}"/>
-                            <input type="submit" value="Submit"/>
-                        </form>
-
+                        <a href="/">Go back to main page</a>
                     </td>
                 </tr>
             </table>
-
 
         </div>
         <div class="col-sm"></div>
@@ -57,4 +49,3 @@
 
 </body>
 </html>
-

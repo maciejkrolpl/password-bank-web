@@ -23,23 +23,27 @@
                         <td>Service</td>
                         <td>
                             <input type="text" th:value="${entry.service}" th:field="*{service}"/>
+                            <div th:if="${#fields.hasErrors('service')}" th:errors="*{service}"></div>
                         </td>
                     </tr>
                     <tr>
                         <td>Login</td>
                         <td>
                             <input type="text" th:value="${entry.login}" th:field="*{login}" />
+                            <div th:if="${#fields.hasErrors('login')}" th:errors="*{login}"></div>
                         </td>
                     </tr>
                     <tr>
                         <td>Password</td>
                         <td>
                             <input type="text" th:value="${entry.password}" th:field="*{password}" />
+                            <div th:if="${#fields.hasErrors('password')}" th:errors="*{password}"></div>
                         </td>
                     </tr>
                     <tr>
                         <td>&nbsp;</td>
                         <td>
+                            <input type="hidden" th:value="${entry.id}" th:field="*{id}" />
                             <input type="submit" value="Submit" />
                         </td>
                     </tr>

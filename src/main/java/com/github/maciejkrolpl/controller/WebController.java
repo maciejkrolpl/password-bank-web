@@ -8,8 +8,10 @@ import com.github.maciejkrolpl.service.PasswordEntryService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.util.Set;
 import java.util.stream.Collectors;
 
@@ -51,8 +53,37 @@ public class WebController {
         return "edit";
     }
 
+
+    @PostMapping("/save")
+    public String save(@ModelAttribute("entry") PasswordEntryDto dto, Model model) {
+        PasswordEntry passwordEntrySaved = service.editPasswordEntry(dto);
+
+        model.addAttribute("entry", dto);
+
+        return "save";
+
+
+    }
+
     @PostMapping("/submit")
-    public String submit(@ModelAttribute("entry") PasswordEntrySaveDto entry) {
+    public String submit(@ModelAttribute("entry") PasswordEntryDto dto, BindingResult bindingResult, Model model) {
+
+        if (dto.getService().equals("")) {
+            bindingResult.rejectValue("service", "error.service", "No service entered!");
+        }
+
+        if (dto.getLogin().equals("")) {
+            bindingResult.rejectValue("login", "error.login", "No login entered!");
+        }
+
+        if (dto.getPassword().equals("")) {
+            bindingResult.rejectValue("password", "error.password", "No password entered!");
+        }
+
+        if (bindingResult.hasErrors()) {
+            return "edit";
+        }
+
         return "submit";
     }
 
