@@ -2,9 +2,12 @@ package com.github.maciejkrolpl.dto;
 
 import com.github.maciejkrolpl.model.PasswordEntry;
 
+import javax.validation.constraints.NotNull;
+
 public class PasswordEntryDto {
 
     private Long id;
+    @NotNull
     private String service;
     private String login;
     private String password;

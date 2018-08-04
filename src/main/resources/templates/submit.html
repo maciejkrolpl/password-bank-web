@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+          integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous"/>
+    <meta charset="UTF-8"/>
+    <title>Password Bank Web</title>
+</head>
+<body>
+<h2>Password Bank Web</h2>
+
+<div class="container">
+
+    <div class="row">
+
+        <div class="col-sm"></div>
+        <div class="col-sm">
+
+            <table border="1">
+                <tr>
+                    <th>Service</th>
+                    <th>Login</th>
+                    <th>Password</th>
+                </tr>
+                <tr>
+                    <td th:text="${entry.service}">...</td>
+                    <td th:text="${entry.login}">...</td>
+                    <td th:text="${entry.password}" id="password">...</td>
+                </tr>
+                <tr>
+                    <td colspan="3">
+                        <a th:href="'/edit/' + ${entry.id}">Return to edit</a>
+                    </td>
+                </tr>
+                <tr>
+                    <td colspan="3">
+                        <form action="#" th:action="@{/save}" method="post" th:object="${entry}">
+                            <input type="hidden" th:value="${entry.service}" th:field="*{service}"/>
+                            <input type="hidden" th:value="${entry.login}" th:field="*{login}"/>
+                            <input type="hidden" th:value="${entry.password}" th:field="*{password}"/>
+                            <input type="hidden" th:value="${entry.id}" th:field="*{id}"/>
+                            <input type="submit" value="Submit"/>
+                        </form>
+
+                    </td>
+                </tr>
+            </table>
+
+
+        </div>
+        <div class="col-sm"></div>
+
+
+    </div>
+
+</div>
+
+</body>
+</html>
+
