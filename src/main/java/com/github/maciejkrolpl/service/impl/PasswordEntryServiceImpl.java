@@ -61,11 +61,11 @@ public class PasswordEntryServiceImpl implements PasswordEntryService {
 
     @Override
     public PasswordEntry createPasswordEntry(PasswordEntrySaveDto dto)  {
-
-        PasswordEntry passwordEntry = repository.save(new PasswordEntry());
-        passwordEntry.setService(dto.getService());
-        passwordEntry.setLogin(dto.getLogin());
-
+        PasswordEntry preEntry = new PasswordEntry();
+        preEntry.setLogin(dto.getLogin());
+        preEntry.setService(dto.getService());
+        preEntry.setPassword("");
+        PasswordEntry passwordEntry = repository.save(preEntry);
         passwordEntry.setPassword(encrypt(dto.getPassword(), passwordEntry.getUuid()));
 
         return repository.save(passwordEntry);

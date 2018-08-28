@@ -2,6 +2,7 @@ package com.github.maciejkrolpl.controller;
 
 import com.github.maciejkrolpl.dto.PasswordEntryDto;
 import com.github.maciejkrolpl.dto.PasswordEntryHtmlDto;
+import com.github.maciejkrolpl.dto.PasswordEntrySaveDto;
 import com.github.maciejkrolpl.model.PasswordEntry;
 import com.github.maciejkrolpl.service.PasswordEntryService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -55,13 +56,47 @@ public class WebController {
     @PostMapping("/save")
     public String save(@ModelAttribute("entry") PasswordEntryDto dto, Model model) {
         PasswordEntry passwordEntrySaved = service.editPasswordEntry(dto);
-
         model.addAttribute("entry", dto);
-
         return "save";
+    }
 
+    @PostMapping("/savenew")
+    public String savenew(@ModelAttribute("entry") PasswordEntrySaveDto dto, Model model) {
+        PasswordEntry passwordEntrySaved = service.createPasswordEntry(dto);
+        model.addAttribute("entry", dto);
+        return "save";
+    }
+
+    @GetMapping("/add")
+    public String add(Model model) {
+        PasswordEntrySaveDto dto = new PasswordEntrySaveDto();
+        model.addAttribute("entry", dto);
+        return "add";
+    }
+
+    @PostMapping("/add")
+    public String add(@ModelAttribute("entry") PasswordEntryDto dto, BindingResult bindingResult, Model model) {
+        if (dto.getService().equals("")) {
+            bindingResult.rejectValue("service", "error.service", "No service entered!");
+        }
+
+        if (dto.getLogin().equals("")) {
+            bindingResult.rejectValue("login", "error.login", "No login entered!");
+        }
+
+        if (dto.getPassword().equals("")) {
+            bindingResult.rejectValue("password", "error.password", "No password entered!");
+        }
+
+        if (bindingResult.hasErrors()) {
+            return "add";
+        }
+
+        return "submit";
 
     }
+
+
 
     @PostMapping("/submit")
     public String submit(@ModelAttribute("entry") PasswordEntryDto dto, BindingResult bindingResult, Model model) {

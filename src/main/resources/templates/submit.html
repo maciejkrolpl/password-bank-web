@@ -29,16 +29,23 @@
                 </tr>
                 <tr>
                     <td colspan="3">
-                        <a th:href="'/edit/' + ${entry.id}">Return to edit</a>
+                        <a th:href="'/edit/' + ${entry.id}" th:if="${entry.id}">Return to edit</a>
+                        <a th:href="'/add'" th:if="${entry.id == null}">Return to edit</a>
                     </td>
                 </tr>
                 <tr>
                     <td colspan="3">
-                        <form action="#" th:action="@{/save}" method="post" th:object="${entry}">
+                        <form action="#" th:action="@{/save}" method="post" th:object="${entry}" th:if="${entry.id}">
                             <input type="hidden" th:value="${entry.service}" th:field="*{service}"/>
                             <input type="hidden" th:value="${entry.login}" th:field="*{login}"/>
                             <input type="hidden" th:value="${entry.password}" th:field="*{password}"/>
                             <input type="hidden" th:value="${entry.id}" th:field="*{id}"/>
+                            <input type="submit" value="Submit"/>
+                        </form>
+                        <form action="#" th:action="@{/savenew}" method="post" th:object="${entry}" th:if="${entry.id == null}">
+                            <input type="hidden" th:value="${entry.service}" th:field="*{service}"/>
+                            <input type="hidden" th:value="${entry.login}" th:field="*{login}"/>
+                            <input type="hidden" th:value="${entry.password}" th:field="*{password}"/>
                             <input type="submit" value="Submit"/>
                         </form>
 
